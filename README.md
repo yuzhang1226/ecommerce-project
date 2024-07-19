@@ -14,9 +14,9 @@ Date: 2024/7/18
   - Checkout process
 - **Backend**:
   - RESTful APIs for product management, order processing, and user authentication
-  - Integration with PostgreSQL for data storage
+  - Integration with MongoDB for data storage
 - **Database**:
-  - PostgreSQL for storing users, products, and orders
+  - MongoDB for storing users, products, and orders
 ## Database Schema Design
 ### Users Table
  user_id      UUID
