@@ -2,6 +2,7 @@
 ## Tech Stack
 Student Name: yu zhang  
 Student Number:8905876
+https://github.com/yuzhang1226/ecommerce-project
 Date: 2024/7/18
 - **Frontend**: ReactJS
 - **Backend**: Node.js with Express.js
