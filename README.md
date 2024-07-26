@@ -20,35 +20,35 @@ Date: 2024/7/18
   - MongoDB for storing users, products, and orders
 ## Database Schema Design
 ### Users Table
- user_id      UUID
- username     VARCHAR
- email        VARCHAR
- password     VARCHAR
- created_at   TIMESTAMP
+ user_id      number
+ username     string
+ email        string
+ password     string
+ created_at   date
 
 ### Products Table
-product_id  | UUID
-name        | VARCHAR
-description | TEXT
-price       | DECIMAL
-stock       | INT
-created_at  | TIMESTAMP
+product_id  | Number
+name        | String
+description | String
+price       | Bigint
+stock       | Number
+created_at  | Date
 
 ### Orders Table
 
-order_id    | UUID
-user_id     | UUID
-total_price | DECIMAL
-status      | VARCHAR
-created_at  | TIMESTAMP
+order_id    | Number
+user_id     | Number
+total_price | Bigint
+status      | String
+created_at  | Date
 
 ### Order_Items Table
 
-order_item_id | UUID
-order_id    | UUID
-product_id  | UUID
-quantity    | INT 
-price       | DECIMAL
+order_item_id | Number
+order_id    | Number
+product_id  | Number
+quantity    | Number 
+price       | Bigint
 
 ### Visual Representation
 
