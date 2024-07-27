@@ -98,26 +98,26 @@
    git clone https://github.com/yuzhang1226/ecommerce-project.git
    cd ecommerce-project
    
-2.Navigate to the backend directory and install dependencies:
+2. Navigate to the backend directory and install dependencies:
    ```bash
    cd backend
    npm install
 
-3.Create a .env file in the backend directory with the following content:
+3. Create a .env file in the backend directory with the following content:
    ```bash
    MONGODB_URI=<your_mongodb_atlas_uri>(Replace <your_mongodb_atlas_uri> with your actual MongoDB Atlas connection string.)
    PORT=5000
    
-4.Navigate to the frontend directory and install dependencies:
+4. Navigate to the frontend directory and install dependencies:
    ```bash
    cd ../frontend
    npm install
    
-5.Start the frontend development server:
+5. Start the frontend development server:
    ```bash
    npm start
    
-6.Usage
+6. Usage
    Access the frontend at http://localhost:3000
    The backend API will be available at http://localhost:5000
 
