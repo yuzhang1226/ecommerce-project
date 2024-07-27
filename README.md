@@ -109,7 +109,7 @@
 
 3. Create a .env file in the backend directory with the following content:
    ```bash
-   MONGODB_URI=<your_mongodb_atlas_uri>(Replace <your_mongodb_atlas_uri> with your actual MongoDB Atlas connection string.)
+   MONGODB_URI='mongodb+srv://zyu2818:zy%401234A@cluster0.ni3evew.mongodb.net/cluster0?retryWrites=true&w=majority'
    PORT=5000
    
 4. Navigate to the frontend directory and install dependencies:
