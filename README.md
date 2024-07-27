@@ -109,10 +109,12 @@
    PORT=5000
    
 4.Navigate to the frontend directory and install dependencies:
+   ```bash
    cd ../frontend
    npm install
    
 5.Start the frontend development server:
+   ```bash
    npm start
    
 6.Usage
