@@ -99,10 +99,12 @@
    cd ecommerce-project
    
 2.Navigate to the backend directory and install dependencies:
+   ```bash
    cd backend
    npm install
 
 3.Create a .env file in the backend directory with the following content:
+   ```bash
    MONGODB_URI=<your_mongodb_atlas_uri>(Replace <your_mongodb_atlas_uri> with your actual MongoDB Atlas connection string.)
    PORT=5000
    
