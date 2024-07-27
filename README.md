@@ -65,6 +65,10 @@
 - `quantity`: Number
 - `price`: Bigint
 
+### Database Schema presentation
+- ![image](https://github.com/user-attachments/assets/782720d0-6806-40ac-9192-4c16deeb667c)
+
+
 ## Relationships
 
 ### Users
@@ -121,3 +125,5 @@
    Access the frontend at http://localhost:3000
    The backend API will be available at http://localhost:5000
 
+### Additional Notes
+   If you have any build issues, check the .env file for correct configuration and ensure MongoDB Atlas is properly set up.
