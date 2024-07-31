@@ -1,84 +1,79 @@
 require('dotenv').config();
+const express = require('express');
 const mongoose = require('mongoose');
-const Product = require('./models/product');
+const cors = require('cors');
+const Product = require('./models/product'); // Ensure this path is correct
 
-const mongoURI = process.env.MONGODB_URI;
+const app = express();
+
+// Enable CORS
+app.use(cors());
+
+// Middleware to parse JSON bodies
+app.use(express.json());
 
 // Connect to MongoDB
+const mongoURI = process.env.MONGODB_URI;
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(async () => {
-        console.log('Connected to MongoDB');
-        await performCRUDOperations();
-        mongoose.connection.close();
-    })
-    .catch(err => {
-        console.error('Error:', err);
-    });
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('Error connecting to MongoDB:', err));
 
-// Create
-const createProduct = async (name, price, category, inStock) => {
+// Routes
+// Create a new product
+app.post('/api/products', async (req, res) => {
+    const { name, price, category, inStock } = req.body;
     try {
         const product = new Product({ name, price, category, inStock });
         await product.save();
-        console.log('Product created:', product);
-        return product; // Return the created product object
+        res.status(201).json(product);
     } catch (error) {
         console.error('Error creating product:', error);
-        return null; // Return null if there's an error
+        res.status(500).json({ message: 'Error creating product' });
     }
-};
+});
 
-// Read
-const readProducts = async () => {
-    const products = await Product.find({});
-    console.log('Products found:', products);
-    return products;
-};
+// Read all products
+app.get('/api/products', async (req, res) => {
+    try {
+        const products = await Product.find({});
+        res.json(products);
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        res.status(500).json({ message: 'Error fetching products' });
+    }
+});
 
-// Update
-const updateProduct = async (id, updateFields) => {
+// Update a product
+app.put('/api/products/:id', async (req, res) => {
+    const { id } = req.params;
+    const updateFields = req.body;
     try {
         const updatedProduct = await Product.findByIdAndUpdate(id, updateFields, { new: true });
-        return updatedProduct;
+        if (updatedProduct) {
+            res.json(updatedProduct);
+        } else {
+            res.status(404).json({ message: 'Product not found' });
+        }
     } catch (error) {
         console.error('Error updating product:', error);
-        return null;
+        res.status(500).json({ message: 'Error updating product' });
     }
-};
+});
 
-// Delete
-const deleteProduct = async (id) => {
+// Delete a product
+app.delete('/api/products/:id', async (req, res) => {
+    const { id } = req.params;
     try {
         await Product.findByIdAndDelete(id);
-        console.log('Product deleted');
+        res.status(204).end();
     } catch (error) {
         console.error('Error deleting product:', error);
+        res.status(500).json({ message: 'Error deleting product' });
     }
-};
+});
 
-// Sequential CRUD Operations
-const performCRUDOperations = async () => {
-    // Create a new product
-    const createdProduct = await createProduct('Big Dog Food', 29.99, 'Pet Supplies', true);
-
-    if (createdProduct) {
-        // Read all products
-        const productsBeforeUpdate = await readProducts();
-
-        // Update the created product's price
-        const updatedProduct = await updateProduct(createdProduct._id, { price: 24.99 });
-
-        if (updatedProduct) {
-            console.log('Product updated:', updatedProduct);
-
-            // Delete the updated product
-            await deleteProduct(updatedProduct._id);
-
-            // Read all products to confirm deletion
-            const productsAfterDelete = await readProducts();
-            console.log('Products after deletion:', productsAfterDelete);
-        }
-    }
-};
-
-performCRUDOperations();
+// Start the server
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
