@@ -6,4 +6,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="app.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="app.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="public\css\" />
+    <Folder Include="public\js\" />
+  </ItemGroup>
+
 </Project>
