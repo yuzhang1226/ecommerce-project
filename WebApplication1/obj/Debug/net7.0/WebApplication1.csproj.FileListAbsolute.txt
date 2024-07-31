@@ -29,3 +29,5 @@ C:\Users\zhangyu\Desktop\web\ecommerce-project\WebApplication1\obj\Debug\net7.0\
 C:\Users\zhangyu\Desktop\web\ecommerce-project\WebApplication1\obj\Debug\net7.0\WebApplication1.pdb
 C:\Users\zhangyu\Desktop\web\ecommerce-project\WebApplication1\obj\Debug\net7.0\WebApplication1.genruntimeconfig.cache
 C:\Users\zhangyu\Desktop\web\ecommerce-project\WebApplication1\obj\Debug\net7.0\ref\WebApplication1.dll
+C:\Users\zhangyu\Desktop\web\ecommerce-project\WebApplication1\bin\Debug\net7.0\package-lock.json
+C:\Users\zhangyu\Desktop\web\ecommerce-project\WebApplication1\bin\Debug\net7.0\package.json
