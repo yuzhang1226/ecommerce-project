@@ -1,3 +1,4 @@
+var app = require('./App.js');
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://zyu2818:zy%401234A@cluster0.ni3evew.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
@@ -11,7 +12,8 @@ const client = new MongoClient(uri, {
   }
 });
 
-async function run() {
+/** gets products from database */
+async function openDatabase() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
@@ -20,9 +22,8 @@ async function run() {
     // Query for a movie that has the name 'Shirt'
     const query = { price: 5.99 };
     const allProducts = products.find();
-    for await (const doc of allProducts) {
-        console.log(doc);
-    }
+    app.processProducts(allProducts);
+    
     // console.log(product);
 
   } finally {
@@ -30,4 +31,4 @@ async function run() {
     await client.close();
   }
 }
-run().catch(console.dir);
+// run().catch(console.dir);
