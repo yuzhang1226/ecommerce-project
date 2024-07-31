@@ -1,12 +1,13 @@
+// client/src/App.js
 import React from 'react';
-import ProductList from './components/ProductList'; // Ensure the path is correct
+import ProductsList from './ProductsList';
 
 function App() {
-  return (
-    <div className="App">
-      <ProductList />
-    </div>
-  );
+    return (
+        <div className="App">
+            <ProductsList />
+        </div>
+    );
 }
 
 export default App;
