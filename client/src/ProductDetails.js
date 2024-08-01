@@ -1,26 +1,41 @@
+// client/src/ProductDetails.js
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-const ProductDetail = () => {
-    const { id } = useParams();
+function ProductDetails() {
+    const { id } = useParams(); // Get the product ID from the URL
     const [product, setProduct] = useState(null);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/products/${id}`)
-            .then(response => setProduct(response.data))
+        // Fetch product details from the API
+        fetch(`http://localhost:5000/api/products/${id}`)
+            .then(response => response.json())
+            .then(data => setProduct(data))
             .catch(error => console.error('Error fetching product details:', error));
     }, [id]);
 
-    if (!product) return <div>Loading...</div>;
+    // Function to handle adding the product to the cart
+    const addToCart = () => {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push(product);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(`${product.name} added to cart!`);
+    };
+
+    if (!product) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div>
-            <h1>{product.name}</h1>
-            <p>{product.description}</p>
+            <h2>{product.name}</h2>
             <p>Price: ${product.price}</p>
+            <p>Category: {product.category}</p>
+            <p>In Stock: {product.inStock ? 'Yes' : 'No'}</p>
+            <p>Details: {product.details}</p>
+            <button onClick={addToCart}>Add to Cart</button>
         </div>
     );
-};
+}
 
-export default ProductDetail;
+export default ProductDetails;

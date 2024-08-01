@@ -1,46 +1,33 @@
 // client/src/ProductsList.js
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const ProductsList = () => {
+function ProductsList({ category }) {
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/products')
-            .then(response => {
-                setProducts(response.data);
-                setLoading(false);
-            })
-            .catch(err => {
-                setError('Failed to fetch products');
-                setLoading(false);
-            });
-    }, []);
-
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>{error}</p>;
+        fetch('http://localhost:5000/api/products')
+            .then(response => response.json())
+            .then(data => setProducts(data))
+            .catch(error => console.error('Error fetching products:', error));
+    }, [category]);
 
     return (
         <div>
             <h1>Products</h1>
             <ul>
-                {products.length > 0 ? (
-                    products.map(product => (
+                {products
+                    .filter(product => category === '' || product.category === category)
+                    .map(product => (
                         <li key={product._id}>
-                            <h2>{product.name}</h2>
-                            <p>Price: ${product.price}</p>
-                            <p>Category: {product.category}</p>
-                            <p>In Stock: {product.inStock ? 'Yes' : 'No'}</p>
+                            <Link to={`/products/${product._id}`}>
+                                {product.name} - ${product.price}
+                            </Link>
                         </li>
-                    ))
-                ) : (
-                    <p>No products available</p>
-                )}
+                    ))}
             </ul>
         </div>
     );
-};
+}
 
 export default ProductsList;
