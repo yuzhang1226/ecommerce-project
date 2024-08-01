@@ -18,6 +18,22 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Error connecting to MongoDB:', err));
 
+
+// Read a single product by ID
+app.get('/api/products/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const product = await Product.findById(id);
+        if (product) {
+            res.json(product);
+        } else {
+            res.status(404).json({ message: 'Product not found' });
+        }
+    } catch (error) {
+        console.error('Error fetching product:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
 // Routes
 // Create a new product
 app.post('/api/products', async (req, res) => {
@@ -29,6 +45,16 @@ app.post('/api/products', async (req, res) => {
     } catch (error) {
         console.error('Error creating product:', error);
         res.status(500).json({ message: 'Error creating product' });
+    }
+});
+
+app.get('/api/products/categories', async (req, res) => {
+    try {
+        const categories = await Product.distinct('category');
+        res.json(categories);
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        res.status(500).json({ message: 'Error fetching categories' });
     }
 });
 
