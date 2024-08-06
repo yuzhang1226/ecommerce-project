@@ -6,12 +6,13 @@ const CategoryList = ({ onCategorySelect }) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/products/categories')
+        axios.get('http://localhost:5000/api/categories')  // Correct API endpoint
             .then(response => {
                 setCategories(response.data);
             })
             .catch(err => {
                 setError('Failed to fetch categories');
+                console.error('Error fetching categories:', err);
             });
     }, []);
 
@@ -22,8 +23,8 @@ const CategoryList = ({ onCategorySelect }) => {
             <h1>Categories</h1>
             <ul>
                 {categories.map(category => (
-                    <li key={category} onClick={() => onCategorySelect(category)}>
-                        {category}
+                    <li key={category._id} onClick={() => onCategorySelect(category.name)}>
+                        {category.name}
                     </li>
                 ))}
             </ul>

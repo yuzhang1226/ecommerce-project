@@ -3,8 +3,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const Product = require('./models/Product');
-const Order = require('./models/Order'); // Import the Order model
-const Category = require('./models/Category'); // Import the Category model
+const Order = require('./models/Order');
+const Category = require('./models/Category');
+const categoryRoutes = require('./routes/category'); // Import category routes
 const app = express();
 
 // Enable CORS
@@ -38,7 +39,7 @@ app.post('/api/admin/login', (req, res) => {
     }
 });
 
-// Read a single product by ID
+// Product Routes
 app.get('/api/products/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -54,7 +55,6 @@ app.get('/api/products/:id', async (req, res) => {
     }
 });
 
-// Create a new product
 app.post('/api/products', async (req, res) => {
     const { name, price, category, inStock } = req.body;
     try {
@@ -67,18 +67,6 @@ app.post('/api/products', async (req, res) => {
     }
 });
 
-// Fetch distinct product categories
-app.get('/api/products/categories', async (req, res) => {
-    try {
-        const categories = await Category.find(); // Fetch categories from the Category model
-        res.json(categories);
-    } catch (error) {
-        console.error('Error fetching categories:', error);
-        res.status(500).json({ message: 'Error fetching categories' });
-    }
-});
-
-// Read all products
 app.get('/api/products', async (req, res) => {
     try {
         const products = await Product.find({}).populate('category');
@@ -89,7 +77,6 @@ app.get('/api/products', async (req, res) => {
     }
 });
 
-// Update a product
 app.put('/api/products/:id', async (req, res) => {
     const { id } = req.params;
     const updateFields = req.body;
@@ -106,7 +93,6 @@ app.put('/api/products/:id', async (req, res) => {
     }
 });
 
-// Delete a product
 app.delete('/api/products/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -118,7 +104,7 @@ app.delete('/api/products/:id', async (req, res) => {
     }
 });
 
-// Create a new order
+// Order Routes
 app.post('/api/orders', async (req, res) => {
     const { userDetails, products } = req.body;
 
@@ -139,6 +125,9 @@ app.post('/api/orders', async (req, res) => {
         res.status(500).json({ message: 'Error creating order' });
     }
 });
+
+// Category Routes
+app.use('/api/categories', categoryRoutes);  // Register category routes
 
 // Start the server
 const port = process.env.PORT || 5000;
