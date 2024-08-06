@@ -107,7 +107,7 @@
    cd server
    npm install
 
-3. Create a .env file in the backend directory with the following content:
+3. Create a .env file in the server directory with the following content(you don't need to create this if it has already in the server directory):
    ```bash
    MONGODB_URI='mongodb+srv://zyu2818:zy%401234A@cluster0.ni3evew.mongodb.net/cluster0?retryWrites=true&w=majority'
    PORT=5000
@@ -116,7 +116,7 @@
    ```bash
    npm start
    
-5. Navigate to the client directory and install dependencies:
+5. open another bash, Navigate to the client directory and install dependencies:
    ```bash
    cd ../client
    npm install
