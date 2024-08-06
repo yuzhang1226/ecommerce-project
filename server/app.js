@@ -2,8 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const Product = require('./models/product'); // Ensure this path is correct
-
+const Product = require('./models/Product');
+const Order = require('./models/Order'); // Import the Order model
+const Category = require('./models/Category'); // Import the Category model
 const app = express();
 
 // Enable CORS
@@ -18,12 +19,30 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Error connecting to MongoDB:', err));
 
+// Routes
+
+// Admin Login Route
+app.post('/api/admin/login', (req, res) => {
+    const { username, password } = req.body;
+
+    // Hard-coded admin credentials
+    const adminCredentials = {
+        username: 'admin',
+        password: 'password'
+    };
+
+    if (username === adminCredentials.username && password === adminCredentials.password) {
+        res.json({ isAdmin: true });
+    } else {
+        res.status(401).json({ isAdmin: false });
+    }
+});
 
 // Read a single product by ID
 app.get('/api/products/:id', async (req, res) => {
     const { id } = req.params;
     try {
-        const product = await Product.findById(id);
+        const product = await Product.findById(id).populate('category');
         if (product) {
             res.json(product);
         } else {
@@ -34,7 +53,7 @@ app.get('/api/products/:id', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
-// Routes
+
 // Create a new product
 app.post('/api/products', async (req, res) => {
     const { name, price, category, inStock } = req.body;
@@ -48,9 +67,10 @@ app.post('/api/products', async (req, res) => {
     }
 });
 
+// Fetch distinct product categories
 app.get('/api/products/categories', async (req, res) => {
     try {
-        const categories = await Product.distinct('category');
+        const categories = await Category.find(); // Fetch categories from the Category model
         res.json(categories);
     } catch (error) {
         console.error('Error fetching categories:', error);
@@ -61,7 +81,7 @@ app.get('/api/products/categories', async (req, res) => {
 // Read all products
 app.get('/api/products', async (req, res) => {
     try {
-        const products = await Product.find({});
+        const products = await Product.find({}).populate('category');
         res.json(products);
     } catch (error) {
         console.error('Error fetching products:', error);
@@ -74,7 +94,7 @@ app.put('/api/products/:id', async (req, res) => {
     const { id } = req.params;
     const updateFields = req.body;
     try {
-        const updatedProduct = await Product.findByIdAndUpdate(id, updateFields, { new: true });
+        const updatedProduct = await Product.findByIdAndUpdate(id, updateFields, { new: true }).populate('category');
         if (updatedProduct) {
             res.json(updatedProduct);
         } else {
@@ -95,6 +115,28 @@ app.delete('/api/products/:id', async (req, res) => {
     } catch (error) {
         console.error('Error deleting product:', error);
         res.status(500).json({ message: 'Error deleting product' });
+    }
+});
+
+// Create a new order
+app.post('/api/orders', async (req, res) => {
+    const { userDetails, products } = req.body;
+
+    // Calculate total price
+    const total_price = products.reduce((sum, product) => sum + product.price * product.quantity, 0);
+
+    const newOrder = new Order({
+        userDetails,
+        products,
+        total_price
+    });
+
+    try {
+        const savedOrder = await newOrder.save();
+        res.status(201).json(savedOrder);
+    } catch (error) {
+        console.error('Error creating order:', error);
+        res.status(500).json({ message: 'Error creating order' });
     }
 });
 
