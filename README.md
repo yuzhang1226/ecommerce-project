@@ -97,7 +97,7 @@
 
 ### Project Initialization
 
-1. Clone the repository:
+1. Clone the repository, and cd to the directory which the project locate in:
    ```bash
    git clone https://github.com/yuzhang1226/ecommerce-project.git
    cd ecommerce-project
@@ -118,7 +118,8 @@
    
 5. open another bash, Navigate to the client directory and install dependencies:
    ```bash
-   cd ../client
+   cd ecommerce-project
+   cd client
    npm install
    
 6. Start the frontend development server:
@@ -130,8 +131,8 @@
 ### Test Case 1:Display Product Listings
 - **Description:** Verify that the product listings are displayed correctly on the home page.
 - **Steps:**
-- Navigate to the home page of the application.
-- Ensure that the product cards are visible, displaying the product name, price, and image.
+- Navigate to the home page.
+- Ensure that the products are displaying the product name, price.
 - Click on a product to navigate to its details page.
 - **Expected Result:** The product listings should be displayed, and clicking on a product should take you to the product details page.
 ### Test Case 2: Add Product to Cart
@@ -139,14 +140,13 @@
 - **Steps:**
 - Go to a product details page.
 - Click on the "Add to Cart" button.
-- Check if the cart icon shows the correct number of items.
 - Navigate to the cart page.
-- **Expected Result:** The product should be added to the cart, and the cart should reflect the correct item count.
+- **Expected Result:** The product should be added to the cart page.
 ### Test Case 3: View Shopping Cart
 - **Description:** Verify that the shopping cart displays the correct items and total price.
 - **Steps:**
-- Click on the cart icon to go to the shopping cart page.
-- Ensure that the products added to the cart are listed with their correct name, quantity, and price.
+- Click the cart page.
+- Ensure that the products added to the cart are listed with their correct name and price.
 - Check that the total price is calculated correctly.
 - **Expected Result:** The cart should list all added products with the correct total price.
 ### Test Case 4: Update Product Quantity in Cart
@@ -163,36 +163,36 @@
 - Click on the "Remove" button for a product.
 - Ensure that the product is removed from the cart.
 - **Expected Result:** The product should be removed from the cart, and the total price should update accordingly.
-### Test Case 6: Complete Checkout Process
-- **Description:** Verify that a user can complete the checkout process.
-- **Steps:**
-- Add products to the cart.
-- Click on the "Checkout" button.
-- Enter the required user information (e.g., shipping address).
-- Submit the order.
-- **Expected Result:** The order should be successfully placed, and the user should see an order confirmation page.
-### Test Case 7: View Order History
+### Test Case 6: View Order History
 - **Description:** Verify that a user can view their order history.
 - **Steps:**
 - Log in to the user account.
 - Navigate to the order history page.
 - Check that the previous orders are listed with details like order date, products, and total price.
 - **Expected Result:** The order history should display all previous orders with correct details.
-### Test Case 8: Filter Products by Category
-- **Description:** Verify that the user can filter products by selecting a category.
+### Test Case 7: Create Product
+- **Description:** Test the ability to create a new product within a category.
 - **Steps:**
-- Click on a category from the category list on the home page.
+- Log in as Admin: Complete the admin login process.
 - Ensure that only products from the selected category are displayed.
 - **Expected Result:** The product listings should update to show only products from the selected category.
-### Test Case 9: API Testing for Product Retrieval
-- **Description:** Verify that the API returns the correct products.
+### Test Case 8: Admin Login Test
+- **Description:** Verify that only the admin can log in with the correct credentials.
 - **Steps:**
-- Use Postman to send a GET request to /api/products.
-- Check the response for the correct product data, including name, price, and category.
-- **Expected Result:** The API should return a JSON response with the correct product data.
-### Test Case 10: API Testing for Order Creation
-- **Description:** Verify that the API allows creating an order.
+- Login as Admin: Enter the admin username (admin) and password (password).
+- Create New Product: Fill in the product details, select a category, and submit the form.
+- **Expected Result:** The new product should be added successfully and appear in the list.
+### Test Case 9: Invalid Admin Login Test
+- **Description:** Ensure that incorrect login credentials do not grant access to the admin dashboard.
 - **Steps:**
-- Use Postman to send a POST request to /api/orders with valid order data.
-- Check that the order is created and returned in the response.
-- **Expected Result:** The API should create the order and return the order details in the JSON response.
+- Attempt Login with Wrong Credentials: Enter incorrect admin credentials (e.g., wrong username or password).
+- Submit the Login Form.
+- **Expected Result:** The login attempt fails, and an error message is displayed.
+### Test Case 10: Create Category
+- **Description:** Test the ability to create a new category.
+- **Steps:**
+- Log in as Admin: Complete the admin login process.
+- Navigate to Category Management: Go to the category management page.
+- Create New Category: Fill in the category name (e.g., Electronics) and submit the form.
+- **Expected Result:** The new category should be added successfully and appear in the list.
+- 
