@@ -147,52 +147,46 @@
 - **Steps:**
 - Click the cart page.
 - Ensure that the products added to the cart are listed with their correct name and price.
-- Check that the total price is calculated correctly.
-- **Expected Result:** The cart should list all added products with the correct total price.
-### Test Case 4: Update Product Quantity in Cart
-- **Description:** Verify that a user can update the quantity of a product in the cart.
+- **Expected Result:** The cart should list all added products.
+### Test Case 4: Verify Checkout Process
+- **Description:** Ensure that the checkout process functions correctly, including displaying the correct order summary and successfully placing an order.
 - **Steps:**
-- Go to the shopping cart page.
-- Change the quantity of a product.
-- Ensure that the cart updates the total price accordingly.
-- **Expected Result:** The product quantity should be updated, and the total price should reflect the change.
-### Test Case 5: Remove Product from Cart
-- **Description:** Verify that a user can remove a product from the shopping cart.
-- **Steps:**
-- Go to the shopping cart page.
-- Click on the "Remove" button for a product.
-- Ensure that the product is removed from the cart.
-- **Expected Result:** The product should be removed from the cart, and the total price should update accordingly.
-### Test Case 6: View Order History
-- **Description:** Verify that a user can view their order history.
-- **Steps:**
-- Log in to the user account.
-- Navigate to the order history page.
-- Check that the previous orders are listed with details like order date, products, and total price.
-- **Expected Result:** The order history should display all previous orders with correct details.
-### Test Case 7: Create Product
-- **Description:** Test the ability to create a new product within a category.
-- **Steps:**
-- Log in as Admin: Complete the admin login process.
-- Ensure that only products from the selected category are displayed.
-- **Expected Result:** The product listings should update to show only products from the selected category.
-### Test Case 8: Admin Login Test
+- Add Items to Cart: Add one or more items to the shopping cart from the product listing page
+- Place the Order: click checkout page, fill up user's information, and click checkout.
+- **Expected Result:** The order is successfully placed.
+### Test Case 5: Admin Login Test
 - **Description:** Verify that only the admin can log in with the correct credentials.
 - **Steps:**
 - Login as Admin: Enter the admin username (admin) and password (password).
 - Create New Product: Fill in the product details, select a category, and submit the form.
 - **Expected Result:** The new product should be added successfully and appear in the list.
-### Test Case 9: Invalid Admin Login Test
+### Test Case 6: Invalid Admin Login Test
 - **Description:** Ensure that incorrect login credentials do not grant access to the admin dashboard.
 - **Steps:**
 - Attempt Login with Wrong Credentials: Enter incorrect admin credentials (e.g., wrong username or password).
 - Submit the Login Form.
 - **Expected Result:** The login attempt fails, and an error message is displayed.
-### Test Case 10: Create Category
-- **Description:** Test the ability to create a new category.
+- ### Test Case 7: Create Product
+- **Description:** Test the ability to create a new product within a category.
 - **Steps:**
-- Log in as Admin: Complete the admin login process.
-- Navigate to Category Management: Go to the category management page.
-- Create New Category: Fill in the category name (e.g., Electronics) and submit the form.
-- **Expected Result:** The new category should be added successfully and appear in the list.
-- 
+- Admin Dashboard: click Admin Dashboard.
+- input product's name, price,category and click create button.
+- **Expected Result:** The product listings should update to show the products that you created.
+### Test Case 8: delete Product
+- **Description:** Test the ability to delete a product.
+- **Steps:**
+- Admin Dashboard: click Admin Dashboard.
+- click the delete botton on the product list.
+- **Expected Result:** The product which you deleted should be delete successfully and disappear in the list.
+  ### Test Case 9: update Product
+- **Description:** Test the ability to update a product.
+- **Steps:**
+- Admin Dashboard: click Admin Dashboard.
+- click the update botton on the product list.
+- **Expected Result:** The product which you update should be update successfully.
+-   ### Test Case 10: Read (List) Products
+- **Description:** Test the ability to list all products.
+- **Steps:**
+- Admin Dashboard: click Admin Dashboard.
+- View Product List: Check the page to ensure all existing products are listed.
+- **Expected Result:** All products should be listed correctly.
